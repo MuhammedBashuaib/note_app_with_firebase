@@ -60,6 +60,7 @@ class SignInScreenBody extends StatelessWidget {
                 ),
                 CustomTextFormField(
                   controller: emailController,
+                  obscureText: false,
                   title: "Email",
                   hintText: "Enter Your Email",
                   keyboardType: TextInputType.emailAddress,
@@ -69,9 +70,10 @@ class SignInScreenBody extends StatelessWidget {
                 ),
                 CustomTextFormField(
                   controller: passwordController,
+                  obscureText: true,
                   title: "Password",
                   hintText: "Enter Your Password",
-                  keyboardType: TextInputType.emailAddress,
+                  keyboardType: TextInputType.visiblePassword,
                 ),
                 Container(
                   alignment: Alignment.topRight,
