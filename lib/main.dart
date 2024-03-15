@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 
 import 'package:note_app_with_firebase/firebase_options.dart';
 import 'package:note_app_with_firebase/res/routes.dart';
+import 'package:note_app_with_firebase/res/sizes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,6 +18,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    initializeHWFSize(context);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: routes,
