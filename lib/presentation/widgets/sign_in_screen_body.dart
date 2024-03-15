@@ -7,6 +7,7 @@ import 'package:note_app_with_firebase/presentation/widgets/custom_text_button.d
 import 'package:note_app_with_firebase/presentation/widgets/custom_text_form_field.dart';
 import 'package:note_app_with_firebase/res/color_app.dart';
 import 'package:note_app_with_firebase/res/images.dart';
+import 'package:note_app_with_firebase/res/routes.dart';
 import 'package:note_app_with_firebase/res/sizes.dart';
 
 class SignInScreenBody extends StatelessWidget {
@@ -107,7 +108,10 @@ class SignInScreenBody extends StatelessWidget {
               message: "Don't Have An Account ?",
               text: "Register",
               textColor: MyColors.kOrange,
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context)
+                    .pushReplacementNamed(MyRoutes.signUpScreen);
+              },
             )
           ],
         ),

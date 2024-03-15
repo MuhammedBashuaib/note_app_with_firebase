@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:note_app_with_firebase/res/color_app.dart';
-import 'package:note_app_with_firebase/res/images.dart';
 import 'package:note_app_with_firebase/res/sizes.dart';
 
 class CustomButtonWithIcon extends StatelessWidget {
