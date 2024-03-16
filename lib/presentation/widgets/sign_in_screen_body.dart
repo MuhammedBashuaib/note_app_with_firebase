@@ -123,6 +123,9 @@ class _SignInScreenBodyState extends State<SignInScreenBody> {
                         email: _email!,
                         password: _password!,
                       );
+                      // ignore: use_build_context_synchronously
+                      Navigator.of(context)
+                          .pushReplacementNamed(MyRoutes.homeScreen);
                     } on FirebaseAuthException catch (e) {
                       if (e.code == 'user-not-found') {
                         customShowDialog(
@@ -130,8 +133,6 @@ class _SignInScreenBodyState extends State<SignInScreenBody> {
                           title: "Error",
                           content: "No user found for that email.",
                         );
-                        Navigator.of(context)
-                            .pushReplacementNamed(MyRoutes.homeScreen);
                       } else if (e.code == 'wrong-password') {
                         customShowDialog(
                           context: context,

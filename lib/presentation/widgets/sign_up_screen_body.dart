@@ -120,6 +120,7 @@ class _SignUpScreenBodyState extends State<SignUpScreenBody> {
                         email: _email!,
                         password: _password!,
                       );
+                      // ignore: use_build_context_synchronously
                       Navigator.of(context)
                           .pushReplacementNamed(MyRoutes.signInScreen);
                     } on FirebaseAuthException catch (e) {
