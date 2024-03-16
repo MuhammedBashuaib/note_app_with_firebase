@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:note_app_with_firebase/data/models/user_model.dart';
 import 'package:note_app_with_firebase/data/services/auth_service.dart';
+import 'package:note_app_with_firebase/data/services/auth_with_google_service.dart';
 import 'package:note_app_with_firebase/presentation/widgets/custom_button_with_icon.dart';
 import 'package:note_app_with_firebase/presentation/widgets/custom_icon_container.dart';
 import 'package:note_app_with_firebase/presentation/widgets/custom_material_button.dart';
@@ -151,7 +152,21 @@ class _SignInScreenBodyState extends State<SignInScreenBody> {
                 buttonTitle: "Login With Google",
                 buttonColor: MyColors.kMaroon,
                 icon: MyImages.googleIcon,
-                onTap: () {},
+                onTap: () async {
+                  try {
+                    if (await AuthWithGoogleService().signInWithGoogle() !=
+                        null) {
+                      // ignore: use_build_context_synchronously
+                      Navigator.of(context)
+                          .pushReplacementNamed(MyRoutes.homeScreen);
+                    }
+                  } on Exception catch (e) {
+                    customShowDialog(
+                        context: context,
+                        title: "Error",
+                        content: e.toString());
+                  }
+                },
               ),
               SizedBox(
                 height: heightScreen * .03,
