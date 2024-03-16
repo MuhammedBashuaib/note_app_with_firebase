@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:note_app_with_firebase/res/color_app.dart';
 import 'package:note_app_with_firebase/res/sizes.dart';
 
@@ -33,6 +34,56 @@ class CustomTextFormField extends StatelessWidget {
           height: heightScreen * .01,
         ),
         TextFormField(
+          // ignore: body_might_complete_normally_nullable
+          validator: (value) {
+            if (value!.isNotEmpty) {
+              if (obscureText) {
+                //password validation
+                if (value.length > 8) {
+                  bool hasUppercase = false;
+                  bool hasLowercase = false;
+                  bool hasDigit = false;
+
+                  for (int i = 0; i < value.length; i++) {
+                    if (value[i].toUpperCase() != value[i]) {
+                      hasLowercase = true;
+                    }
+                    if (value[i].toLowerCase() != value[i]) {
+                      hasUppercase = true;
+                    }
+                    if (int.tryParse(value[i]) != null) {
+                      hasDigit = true;
+                    }
+                  }
+                  if (hasUppercase && hasLowercase && hasDigit) {
+                    return null;
+                  } else {
+                    return "The password must contain an uppercase letter, a lowercase letter, and at least one number";
+                  }
+                } else {
+                  return "Password length must be at least 8 characters";
+                }
+              } else {
+                //email validation
+                if (keyboardType == TextInputType.emailAddress) {
+                  final RegExp emailRegex = RegExp(
+                    r'^[\w-]+(\.[\w-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,})$',
+                  );
+                  if (emailRegex.hasMatch(value)) {
+                    return null;
+                  } else {
+                    return "The email address you entered is incorrect";
+                  }
+                } else {
+                  return null;
+                }
+              }
+            } else if (value.isEmpty) {
+              return "The field is required";
+            } else {
+              return null;
+            }
+          },
           controller: controller,
           keyboardType: keyboardType,
           obscureText: obscureText,
