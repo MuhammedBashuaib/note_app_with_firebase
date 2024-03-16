@@ -1,8 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:note_app_with_firebase/data/models/user_model.dart';
+import 'package:note_app_with_firebase/data/services/auth_service.dart';
 import 'package:note_app_with_firebase/presentation/widgets/custom_button_with_icon.dart';
 import 'package:note_app_with_firebase/presentation/widgets/custom_icon_container.dart';
 import 'package:note_app_with_firebase/presentation/widgets/custom_material_button.dart';
 import 'package:note_app_with_firebase/presentation/widgets/custom_message_with_text_button.dart';
+import 'package:note_app_with_firebase/presentation/widgets/custom_show_dialog.dart';
 import 'package:note_app_with_firebase/presentation/widgets/custom_text_button.dart';
 import 'package:note_app_with_firebase/presentation/widgets/custom_text_form_field.dart';
 import 'package:note_app_with_firebase/res/color_app.dart';
@@ -20,7 +24,15 @@ class SignInScreenBody extends StatefulWidget {
 class _SignInScreenBodyState extends State<SignInScreenBody> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  AuthService auth = AuthService();
+
+  String? _email;
+  String? _password;
+
+  UserModel? userModel;
 
   @override
   Widget build(BuildContext context) {
@@ -69,6 +81,7 @@ class _SignInScreenBodyState extends State<SignInScreenBody> {
                   ),
                   CustomTextFormField(
                     controller: emailController,
+                    onChanged: (value) => _email = value,
                     obscureText: false,
                     title: "Email",
                     hintText: "Enter Your Email",
@@ -79,6 +92,7 @@ class _SignInScreenBodyState extends State<SignInScreenBody> {
                   ),
                   CustomTextFormField(
                     controller: passwordController,
+                    onChanged: (value) => _password = value,
                     obscureText: true,
                     title: "Password",
                     hintText: "Enter Your Password",
@@ -101,8 +115,32 @@ class _SignInScreenBodyState extends State<SignInScreenBody> {
                 titleButton: "Login",
                 color: MyColors.kOrange,
                 horizontalPadding: widthScreen * .408,
-                onPressed: () {
-                  formKey.currentState!.validate();
+                onPressed: () async {
+                  // if (formKey.currentState!.validate()) {
+                  if (true) {
+                    try {
+                      await auth.signIn(
+                        email: _email!,
+                        password: _password!,
+                      );
+                    } on FirebaseAuthException catch (e) {
+                      if (e.code == 'user-not-found') {
+                        customShowDialog(
+                          context: context,
+                          title: "Error",
+                          content: "No user found for that email.",
+                        );
+                        Navigator.of(context)
+                            .pushReplacementNamed(MyRoutes.homeScreen);
+                      } else if (e.code == 'wrong-password') {
+                        customShowDialog(
+                          context: context,
+                          title: "Error",
+                          content: "Wrong password provided for that user.",
+                        );
+                      }
+                    }
+                  }
                 },
               ),
               SizedBox(
