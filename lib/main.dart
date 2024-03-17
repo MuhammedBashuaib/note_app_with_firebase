@@ -5,6 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:note_app_with_firebase/firebase_options.dart';
 import 'package:note_app_with_firebase/res/routes.dart';
 import 'package:note_app_with_firebase/res/sizes.dart';
+import 'package:note_app_with_firebase/res/theme_data.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
     initializeHWFSize(context);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: themeData(),
       routes: routes,
       initialRoute: FirebaseAuth.instance.currentUser == null
           ? MyRoutes.signInScreen
