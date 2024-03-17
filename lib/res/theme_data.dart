@@ -16,5 +16,9 @@ ThemeData themeData() {
         size: heightScreen * .03,
       ),
     ),
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+      backgroundColor: MyColors.kOrange,
+      iconSize: heightScreen * .035,
+    ),
   );
 }

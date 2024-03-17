@@ -26,6 +26,12 @@ class HomeScreen extends StatelessWidget {
           )
         ],
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).pushNamed(MyRoutes.addCategoryScreen);
+        },
+        child: const Icon(Icons.add),
+      ),
       body: const HomeScreenBody(),
     );
   }
