@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:note_app_with_firebase/data/services/auth_with_google_service.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -35,7 +34,6 @@ class AuthService {
 
   //logout
   Future<void> logout() async {
-    AuthWithGoogleService().logoutWithGoogle();
     await FirebaseAuth.instance.signOut();
   }
 
