@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:note_app_with_firebase/data/models/user_model.dart';
 import 'package:note_app_with_firebase/data/services/auth_service.dart';
+import 'package:note_app_with_firebase/presentation/widgets/custom_definition_text.dart';
 
 import 'package:note_app_with_firebase/presentation/widgets/custom_icon_container.dart';
 import 'package:note_app_with_firebase/presentation/widgets/custom_material_button.dart';
@@ -34,6 +35,40 @@ class _SignUpScreenBodyState extends State<SignUpScreenBody> {
 
   UserModel? userModel;
 
+  Future signUpButton() async {
+    // if (formKey.currentState!.validate()) {
+    if (true) {
+      try {
+        await auth.signUp(
+          email: _email!,
+          password: _password!,
+        );
+        // ignore: use_build_context_synchronously
+        Navigator.of(context).pushReplacementNamed(MyRoutes.signInScreen);
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'weak-password') {
+          customShowDialog(
+            context: context,
+            title: "Error",
+            content: "The password provided is too weak.",
+          );
+        } else if (e.code == 'email-already-in-use') {
+          customShowDialog(
+            context: context,
+            title: "Error",
+            content: "The account already exists for that email.",
+          );
+        }
+      } catch (e) {
+        customShowDialog(
+          context: context,
+          title: "Error",
+          content: e.toString(),
+        );
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -54,23 +89,9 @@ class _SignUpScreenBodyState extends State<SignUpScreenBody> {
               SizedBox(
                 height: heightScreen * .05,
               ),
-              Text(
-                "SignUp",
-                style: TextStyle(
-                  fontSize: fSize * 1.7,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(
-                height: heightScreen * .01,
-              ),
-              Text(
-                "SignUp To Continue Using The App",
-                style: TextStyle(
-                  fontSize: fSize * 1.1,
-                  // fontWeight: FontWeight.bold,
-                  color: MyColors.kGrey,
-                ),
+              const CustomDefinitionText(
+                title: "SignUp",
+                difinitionText: "SignUp To Continue Using The App",
               ),
               SizedBox(
                 height: heightScreen * .05,
@@ -112,40 +133,7 @@ class _SignUpScreenBodyState extends State<SignUpScreenBody> {
                 titleButton: "SignUp",
                 color: MyColors.kOrange,
                 horizontalPadding: widthScreen * .395,
-                onPressed: () async {
-                  // if (formKey.currentState!.validate()) {
-                  if (true) {
-                    try {
-                      await auth.signUp(
-                        email: _email!,
-                        password: _password!,
-                      );
-                      // ignore: use_build_context_synchronously
-                      Navigator.of(context)
-                          .pushReplacementNamed(MyRoutes.signInScreen);
-                    } on FirebaseAuthException catch (e) {
-                      if (e.code == 'weak-password') {
-                        customShowDialog(
-                          context: context,
-                          title: "Error",
-                          content: "The password provided is too weak.",
-                        );
-                      } else if (e.code == 'email-already-in-use') {
-                        customShowDialog(
-                          context: context,
-                          title: "Error",
-                          content: "The account already exists for that email.",
-                        );
-                      }
-                    } catch (e) {
-                      customShowDialog(
-                        context: context,
-                        title: "Error",
-                        content: e.toString(),
-                      );
-                    }
-                  }
-                },
+                onPressed: signUpButton,
               ),
               SizedBox(
                 height: heightScreen * .01,
