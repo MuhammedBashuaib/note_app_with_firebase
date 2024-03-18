@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:note_app_with_firebase/data/models/category_model.dart';
+import 'package:note_app_with_firebase/data/services/firestore_services/category_service.dart';
 import 'package:note_app_with_firebase/presentation/widgets/custom_category_card.dart';
+import 'package:note_app_with_firebase/presentation/widgets/custom_show_dialog.dart';
 import 'package:note_app_with_firebase/res/sizes.dart';
 
 class CusgomCategoryGridView extends StatelessWidget {
@@ -26,6 +28,19 @@ class CusgomCategoryGridView extends StatelessWidget {
         return CustomCategoryCard(
           categoyName: categories[index].categoryName,
           onTap: () {},
+          onLongPress: () {
+            customShowDialog(
+              context: context,
+              title: "Confirm deletion",
+              content: "Are sure of the deleting process ?",
+              showCancelButton: true,
+              onPressed: () async {
+                await CategoryService()
+                    .deleteCategory(id: categories[index].id);
+                Navigator.of(context).pop();
+              },
+            );
+          },
         );
       },
     );

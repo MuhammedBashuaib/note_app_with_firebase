@@ -18,7 +18,7 @@ class CustomCategoryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      onLongPress: () {},
+      onLongPress: onLongPress,
       child: Card(
         child: Padding(
           padding: EdgeInsets.all(widthScreen * .02),

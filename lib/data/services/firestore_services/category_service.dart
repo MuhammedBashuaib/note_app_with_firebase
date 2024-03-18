@@ -48,4 +48,8 @@ class CategoryService {
 
     return categories;
   }
+
+  Future<void> deleteCategory({required String id}) async {
+    await _categories.doc(id).delete();
+  }
 }
