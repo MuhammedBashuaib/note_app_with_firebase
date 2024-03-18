@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:note_app_with_firebase/data/models/user_model.dart';
-import 'package:note_app_with_firebase/data/services/auth_service.dart';
-import 'package:note_app_with_firebase/data/services/auth_with_google_service.dart';
+import 'package:note_app_with_firebase/data/services/auth/auth_service.dart';
+import 'package:note_app_with_firebase/data/services/auth/auth_with_google_service.dart';
 import 'package:note_app_with_firebase/presentation/widgets/custom_button_with_icon.dart';
 import 'package:note_app_with_firebase/presentation/widgets/custom_definition_text.dart';
 import 'package:note_app_with_firebase/presentation/widgets/custom_icon_container.dart';
