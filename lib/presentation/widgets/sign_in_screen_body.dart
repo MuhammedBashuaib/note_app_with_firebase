@@ -44,6 +44,7 @@ class _SignInScreenBodyState extends State<SignInScreenBody> {
           context: context,
           title: "Message",
           content: "An email has been sent",
+          onPressed: null,
         );
       } on Exception catch (e) {
         // ignore: avoid_print
@@ -52,6 +53,7 @@ class _SignInScreenBodyState extends State<SignInScreenBody> {
           context: context,
           title: "Error",
           content: "No user found for that email.",
+          onPressed: null,
         );
       }
     } else {
@@ -59,6 +61,7 @@ class _SignInScreenBodyState extends State<SignInScreenBody> {
         context: context,
         title: "Error",
         content: "Enter Your Email",
+        onPressed: null,
       );
     }
   }
@@ -79,12 +82,14 @@ class _SignInScreenBodyState extends State<SignInScreenBody> {
             context: context,
             title: "Error",
             content: "No user found for that email.",
+            onPressed: null,
           );
         } else if (e.code == 'wrong-password') {
           customShowDialog(
             context: context,
             title: "Error",
             content: "Wrong password provided for that user.",
+            onPressed: null,
           );
         }
       }
@@ -98,7 +103,12 @@ class _SignInScreenBodyState extends State<SignInScreenBody> {
         Navigator.of(context).pushReplacementNamed(MyRoutes.homeScreen);
       }
     } on Exception catch (e) {
-      customShowDialog(context: context, title: "Error", content: e.toString());
+      customShowDialog(
+        context: context,
+        title: "Error",
+        content: e.toString(),
+        onPressed: null,
+      );
     }
   }
 

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-dynamic customShowDialog({
-  required BuildContext context,
-  required String title,
-  required String content,
-}) {
+dynamic customShowDialog(
+    {required BuildContext context,
+    required String title,
+    required String content,
+    required void Function()? onPressed}) {
   return showDialog<String>(
     context: context,
     builder: (BuildContext context) => AlertDialog(
@@ -12,7 +12,7 @@ dynamic customShowDialog({
       content: Text(content),
       actions: <Widget>[
         TextButton(
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: onPressed ?? () => Navigator.of(context).pop(),
           child: const Text('OK'),
         ),
       ],

@@ -51,12 +51,14 @@ class _SignUpScreenBodyState extends State<SignUpScreenBody> {
             context: context,
             title: "Error",
             content: "The password provided is too weak.",
+            onPressed: null,
           );
         } else if (e.code == 'email-already-in-use') {
           customShowDialog(
             context: context,
             title: "Error",
             content: "The account already exists for that email.",
+            onPressed: null,
           );
         }
       } catch (e) {
@@ -64,6 +66,7 @@ class _SignUpScreenBodyState extends State<SignUpScreenBody> {
           context: context,
           title: "Error",
           content: e.toString(),
+          onPressed: null,
         );
       }
     }
