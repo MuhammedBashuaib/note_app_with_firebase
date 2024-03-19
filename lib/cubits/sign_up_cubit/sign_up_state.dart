@@ -9,4 +9,10 @@ final class SignUpLoadingState extends SignUpState {}
 
 final class SignUpSuccessState extends SignUpState {}
 
-final class SignUpFailureState extends SignUpState {}
+final class SignUpFailureState extends SignUpState {
+  final String erorrMessage;
+
+  SignUpFailureState({
+    required this.erorrMessage,
+  });
+}
