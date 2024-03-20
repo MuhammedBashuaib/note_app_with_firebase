@@ -29,6 +29,7 @@ class _HomeScreenBodyState extends State<HomeScreenBody> {
     return BlocConsumer<CategoriesCubit, CategoriesState>(
       listener: (context, state) {
         if (state is CategoriesSuccessState) {
+          categories.clear();
           categories.addAll(state.categories);
         }
         if (state is CategoriesFailureState) {

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:note_app_with_firebase/cubits/categories_cubit/categories_cubit.dart';
+
 import 'package:note_app_with_firebase/data/services/auth_services/auth_service.dart';
 import 'package:note_app_with_firebase/presentation/widgets/home_screen_body.dart';
 import 'package:note_app_with_firebase/res/routes.dart';
@@ -10,38 +9,31 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<CategoriesCubit>(
-          create: (context) => CategoriesCubit(),
-        ),
-      ],
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text("Home"),
-          actions: [
-            IconButton(
-              onPressed: () {
-                AuthService().logout();
-                Navigator.of(context).pushNamedAndRemoveUntil(
-                  MyRoutes.signInScreen,
-                  (route) => false,
-                );
-              },
-              icon: const Icon(
-                Icons.logout,
-              ),
-            )
-          ],
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.of(context).pushNamed(MyRoutes.addCategoryScreen);
-          },
-          child: const Icon(Icons.add),
-        ),
-        body: const HomeScreenBody(),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Home"),
+        actions: [
+          IconButton(
+            onPressed: () {
+              AuthService().logout();
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                MyRoutes.signInScreen,
+                (route) => false,
+              );
+            },
+            icon: const Icon(
+              Icons.logout,
+            ),
+          )
+        ],
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).pushNamed(MyRoutes.addCategoryScreen);
+        },
+        child: const Icon(Icons.add),
+      ),
+      body: const HomeScreenBody(),
     );
   }
 }

@@ -10,12 +10,11 @@ class CategoriesCubit extends Cubit<CategoriesState> {
 
   final CategoryService _categoryService = CategoryService();
 
-  List<CategoryModel> categories = [];
-
   Future<void> getAllCategories({
     required String uid,
   }) async {
     emit(CategoriesLoadingState());
+    List<CategoryModel> categories = [];
     try {
       categories.addAll(
         await _categoryService.getAllCategories(uid: uid),

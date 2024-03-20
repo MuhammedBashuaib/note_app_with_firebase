@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:note_app_with_firebase/cubits/categories_cubit/categories_cubit.dart';
 
 import 'package:note_app_with_firebase/firebase_options.dart';
 import 'package:note_app_with_firebase/res/routes.dart';
@@ -21,13 +23,20 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     initializeHWFSize(context);
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: themeData(),
-      routes: routes,
-      initialRoute: FirebaseAuth.instance.currentUser == null
-          ? MyRoutes.signInScreen
-          : MyRoutes.homeScreen,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<CategoriesCubit>(
+          create: (context) => CategoriesCubit(),
+        ),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: themeData(),
+        routes: routes,
+        initialRoute: FirebaseAuth.instance.currentUser == null
+            ? MyRoutes.signInScreen
+            : MyRoutes.homeScreen,
+      ),
     );
   }
 }
