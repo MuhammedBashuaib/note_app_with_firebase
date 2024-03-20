@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:note_app_with_firebase/data/services/firestore_services/category_service.dart';
+// import 'package:note_app_with_firebase/data/services/firestore_services/category_service.dart';
 import 'package:note_app_with_firebase/presentation/widgets/custom_material_button.dart';
 import 'package:note_app_with_firebase/presentation/widgets/custom_text_form_field.dart';
 import 'package:note_app_with_firebase/res/color_app.dart';
@@ -16,15 +16,15 @@ class _AddCategoryScreenBodyState extends State<AddCategoryScreenBody> {
   TextEditingController categoyNameController = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  addCategoryButton() async {
-    if (formKey.currentState!.validate()) {
-      await CategoryService().addCategory(
-        categoryName: categoyNameController.text,
-        context: context,
-      );
-      categoyNameController.clear();
-    }
-  }
+  // addCategoryButton() async {
+  //   if (formKey.currentState!.validate()) {
+  //     await CategoryService().addCategory(
+  //       categoryName: categoyNameController.text,
+  //       context: context,
+  //     );
+  //     categoyNameController.clear();
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +53,7 @@ class _AddCategoryScreenBodyState extends State<AddCategoryScreenBody> {
               titleButton: "Add",
               horizontalPadding: widthScreen * .04,
               color: MyColors.kOrange,
-              onPressed: addCategoryButton,
+              onPressed: () {},
             ),
           ],
         ),

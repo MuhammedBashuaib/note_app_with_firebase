@@ -6,7 +6,8 @@ class MyCollictions {
 
 //My Strings constanc
 ///////////////////////////////////////////////
-class MyString {
-  static const String kCategoryName = "category_name";
+class MyCategorykeys {
   static const String kId = "id";
+  static const String kUid = "uid";
+  static const String kCategoryName = "category_name";
 }
