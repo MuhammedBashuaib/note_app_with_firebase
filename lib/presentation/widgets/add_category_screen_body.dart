@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-// import 'package:note_app_with_firebase/data/services/firestore_services/category_service.dart';
-import 'package:note_app_with_firebase/presentation/widgets/custom_material_button.dart';
-import 'package:note_app_with_firebase/presentation/widgets/custom_text_form_field.dart';
-import 'package:note_app_with_firebase/res/color_app.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+
+import 'package:note_app_with_firebase/cubits/add_category_cubit/add_category_cubit.dart';
+import 'package:note_app_with_firebase/presentation/widgets/add_category_form.dart';
+import 'package:note_app_with_firebase/presentation/widgets/custom_show_dialog.dart';
 import 'package:note_app_with_firebase/res/sizes.dart';
 
 class AddCategoryScreenBody extends StatefulWidget {
@@ -16,48 +18,39 @@ class _AddCategoryScreenBodyState extends State<AddCategoryScreenBody> {
   TextEditingController categoyNameController = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  // addCategoryButton() async {
-  //   if (formKey.currentState!.validate()) {
-  //     await CategoryService().addCategory(
-  //       categoryName: categoyNameController.text,
-  //       context: context,
-  //     );
-  //     categoyNameController.clear();
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: widthScreen * .04,
-      ),
-      child: Form(
-        key: formKey,
-        child: Column(
-          children: [
-            SizedBox(
-              height: heightScreen * .1,
+    return BlocConsumer<AddCategoryCubit, AddCategoryState>(
+      listener: (context, state) {
+        if (state is AddCategorySuccessState) {
+          customShowDialog(
+            context: context,
+            title: "Message",
+            content: "category Added",
+            onPressed: null,
+          );
+        }
+        if (state is AddCategoryFailureState) {
+          customShowDialog(
+            context: context,
+            title: "Message",
+            content: "Failed to add user: ${state.erorrMessage}",
+            onPressed: null,
+          );
+        }
+      },
+      builder: (context, state) {
+        return ModalProgressHUD(
+          inAsyncCall: state is AddCategoryLoadingState ? true : false,
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: widthScreen * .04,
             ),
-            CustomTextFormField(
-              controller: categoyNameController,
-              obscureText: false,
-              title: "Category Name",
-              hintText: "Enter Category Name",
-              keyboardType: TextInputType.text,
-            ),
-            SizedBox(
-              height: heightScreen * .04,
-            ),
-            CustomMaterialButton(
-              titleButton: "Add",
-              horizontalPadding: widthScreen * .04,
-              color: MyColors.kOrange,
-              onPressed: () {},
-            ),
-          ],
-        ),
-      ),
+            child: AddCategoryForm(
+                formKey: formKey, categoyNameController: categoyNameController),
+          ),
+        );
+      },
     );
   }
 }
