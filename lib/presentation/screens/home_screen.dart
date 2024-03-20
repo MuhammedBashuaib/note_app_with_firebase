@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
-import 'package:note_app_with_firebase/data/services/auth_services/auth_service.dart';
+import 'package:note_app_with_firebase/cubits/logout_cubit/logout_cubit.dart';
+import 'package:note_app_with_firebase/presentation/widgets/custom_logout_button.dart';
+import 'package:note_app_with_firebase/presentation/widgets/custom_show_dialog.dart';
 import 'package:note_app_with_firebase/presentation/widgets/home_screen_body.dart';
 import 'package:note_app_with_firebase/res/routes.dart';
 
@@ -9,31 +13,46 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Home"),
-        actions: [
-          IconButton(
-            onPressed: () {
-              AuthService().logout();
-              Navigator.of(context).pushNamedAndRemoveUntil(
-                MyRoutes.signInScreen,
-                (route) => false,
-              );
-            },
-            icon: const Icon(
-              Icons.logout,
-            ),
-          )
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.of(context).pushNamed(MyRoutes.addCategoryScreen);
+    return BlocProvider(
+      create: (context) => LogoutCubit(),
+      child: BlocConsumer<LogoutCubit, LogoutState>(
+        listener: (context, state) {
+          if (state is LogoutSuccessState) {
+            Navigator.of(context).pushNamedAndRemoveUntil(
+              MyRoutes.signInScreen,
+              (route) => false,
+            );
+          }
+          if (state is LogoutFailureState) {
+            customShowDialog(
+              context: context,
+              title: "Error",
+              content: state.erorrMessage,
+              onPressed: null,
+            );
+          }
         },
-        child: const Icon(Icons.add),
+        builder: (context, state) {
+          return ModalProgressHUD(
+            inAsyncCall: state is LogoutLoadingState ? true : false,
+            child: Scaffold(
+              appBar: AppBar(
+                title: const Text("Home"),
+                actions: const [
+                  CustomLogoutButton(),
+                ],
+              ),
+              floatingActionButton: FloatingActionButton(
+                onPressed: () {
+                  Navigator.of(context).pushNamed(MyRoutes.addCategoryScreen);
+                },
+                child: const Icon(Icons.add),
+              ),
+              body: const HomeScreenBody(),
+            ),
+          );
+        },
       ),
-      body: const HomeScreenBody(),
     );
   }
 }
