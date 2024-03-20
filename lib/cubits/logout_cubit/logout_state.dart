@@ -1,15 +1,15 @@
 part of 'logout_cubit.dart';
 
 @immutable
-sealed class LogoutCubitState {}
+sealed class LogoutState {}
 
-final class LogoutCubitInitial extends LogoutCubitState {}
+final class LogoutCubitInitial extends LogoutState {}
 
-final class LogoutLoadingState extends LogoutCubitState {}
+final class LogoutLoadingState extends LogoutState {}
 
-final class LogoutSuccessState extends LogoutCubitState {}
+final class LogoutSuccessState extends LogoutState {}
 
-final class LogoutFailureState extends LogoutCubitState {
+final class LogoutFailureState extends LogoutState {
   final String erorrMessage;
 
   LogoutFailureState({

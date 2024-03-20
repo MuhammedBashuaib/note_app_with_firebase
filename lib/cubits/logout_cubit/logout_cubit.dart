@@ -4,8 +4,8 @@ import 'package:note_app_with_firebase/data/services/auth_services/auth_service.
 
 part 'logout_state.dart';
 
-class LogoutCubitCubit extends Cubit<LogoutCubitState> {
-  LogoutCubitCubit() : super(LogoutCubitInitial());
+class LogoutCubit extends Cubit<LogoutState> {
+  LogoutCubit() : super(LogoutCubitInitial());
 
   final AuthService _authService = AuthService();
 
