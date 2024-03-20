@@ -29,7 +29,16 @@ class _SignInScreenBodyState extends State<SignInScreenBody> {
     return BlocConsumer<SignInCubit, SignInState>(
       listener: (context, state) {
         if (state is SignInSuccessState) {
-          Navigator.of(context).pushReplacementNamed(MyRoutes.homeScreen);
+          if (state.isPasswordState) {
+            customShowDialog(
+              context: context,
+              title: "Message",
+              content: "An email has been sent",
+              onPressed: null,
+            );
+          } else {
+            Navigator.of(context).pushReplacementNamed(MyRoutes.homeScreen);
+          }
         }
         if (state is SignInFailureState) {
           if (state.erorrMessage == 'user-not-found') {

@@ -7,7 +7,13 @@ final class SignInInitial extends SignInState {}
 
 final class SignInLoadingState extends SignInState {}
 
-final class SignInSuccessState extends SignInState {}
+final class SignInSuccessState extends SignInState {
+  final bool isPasswordState;
+
+  SignInSuccessState({
+    this.isPasswordState = false,
+  });
+}
 
 final class SignInFailureState extends SignInState {
   final String erorrMessage;

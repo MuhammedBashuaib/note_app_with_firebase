@@ -75,7 +75,11 @@ class SingInForm extends StatelessWidget {
                 child: CustomTextButton(
                   text: "Forgot Password ?",
                   textColor: MyColors.kBlack.withOpacity(0.4),
-                  onPressed: () {},
+                  onPressed: () {
+                    BlocProvider.of<SignInCubit>(context).forgotPassword(
+                      email: emailController.text,
+                    );
+                  },
                 ),
               ),
               SizedBox(

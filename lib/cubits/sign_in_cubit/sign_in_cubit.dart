@@ -52,4 +52,49 @@ class SignInCubit extends Cubit<SignInState> {
       );
     }
   }
+
+  void forgotPassword({required String email}) {
+    emit(SignInLoadingState());
+    try {
+      _auth.forgotPassword(email);
+      emit(
+        SignInSuccessState(
+          isPasswordState: true,
+        ),
+      );
+    } on Exception catch (e) {
+      emit(
+        SignInFailureState(
+          erorrMessage: e.toString(),
+        ),
+      );
+    }
+    //   if (_email != null) {
+    //     try {
+    //       auth.forgotPassword(_email!);
+    //       customShowDialog(
+    //         context: context,
+    //         title: "Message",
+    //         content: "An email has been sent",
+    //         onPressed: null,
+    //       );
+    //     } on Exception catch (e) {
+    //       // ignore: avoid_print
+    //       print(e.toString());
+    //       customShowDialog(
+    //         context: context,
+    //         title: "Error",
+    //         content: "No user found for that email.",
+    //         onPressed: null,
+    //       );
+    //     }
+    //   } else {
+    //     customShowDialog(
+    //       context: context,
+    //       title: "Error",
+    //       content: "Enter Your Email",
+    //       onPressed: null,
+    //     );
+    //   }
+  }
 }
