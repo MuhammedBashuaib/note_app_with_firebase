@@ -16,3 +16,5 @@ final class SignInFailureState extends SignInState {
     required this.erorrMessage,
   });
 }
+
+final class SignInCancel extends SignInState {}

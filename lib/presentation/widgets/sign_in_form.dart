@@ -104,7 +104,9 @@ class SingInForm extends StatelessWidget {
             buttonTitle: "Login With Google",
             buttonColor: MyColors.kMaroon,
             icon: MyImages.googleIcon,
-            onTap: () {},
+            onTap: () {
+              BlocProvider.of<SignInCubit>(context).signInWithGoogle();
+            },
           ),
           SizedBox(
             height: heightScreen * .03,
