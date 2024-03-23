@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:note_app_with_firebase/cubits/categories_cubit/categories_cubit.dart';
+import 'package:note_app_with_firebase/cubits/delete_category_cubit/delete_category_cubit.dart';
 import 'package:note_app_with_firebase/data/models/category_model.dart';
-import 'package:note_app_with_firebase/data/services/firestore_services/category_service.dart';
 import 'package:note_app_with_firebase/presentation/widgets/custom_category_card.dart';
 import 'package:note_app_with_firebase/presentation/widgets/custom_show_dialog.dart';
+import 'package:note_app_with_firebase/res/firebase_const.dart';
 import 'package:note_app_with_firebase/res/sizes.dart';
 
 class CusgomCategoryGridView extends StatelessWidget {
@@ -25,19 +29,38 @@ class CusgomCategoryGridView extends StatelessWidget {
       ),
       itemCount: categories.length,
       itemBuilder: (context, index) {
-        return CustomCategoryCard(
-          categoyName: categories[index].categoryName,
-          onTap: () {},
-          onLongPress: () {
-            customShowDialog(
-              context: context,
-              title: "Confirm deletion",
-              content: "Are sure of the deleting process ?",
-              showCancelButton: true,
-              onPressed: () async {
-                await CategoryService()
-                    .deleteCategory(id: categories[index].id);
-                Navigator.of(context).pop();
+        return BlocConsumer<DeleteCategoryCubit, DeleteCategoryState>(
+          listener: (context, state) {
+            if (state is DeleteCategoryFailureState) {
+              customShowDialog(
+                context: context,
+                title: "Error",
+                content: state.erorrMessage,
+                onPressed: null,
+              );
+            }
+          },
+          builder: (context, state) {
+            return CustomCategoryCard(
+              categoyName: categories[index].categoryName,
+              onTap: () {},
+              onLongPress: () {
+                customShowDialog(
+                  context: context,
+                  title: "Confirm deletion",
+                  content: "Are sure of the deleting process ?",
+                  showCancelButton: true,
+                  onPressed: () async {
+                    BlocProvider.of<DeleteCategoryCubit>(context)
+                        .deleteCategory(
+                      categoryId: categories[index].id,
+                    );
+                    BlocProvider.of<CategoriesCubit>(context).getAllCategories(
+                      uid: MyFirebaseConst.currentUser!.uid,
+                    );
+                    Navigator.of(context).pop();
+                  },
+                );
               },
             );
           },
