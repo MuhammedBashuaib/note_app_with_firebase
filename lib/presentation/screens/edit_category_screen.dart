@@ -1,0 +1,16 @@
+import 'package:flutter/material.dart';
+import 'package:note_app_with_firebase/presentation/widgets/edit_category_screen_body.dart';
+
+class EditCategoryScreen extends StatelessWidget {
+  const EditCategoryScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Category Edit"),
+      ),
+      body: const EditCategoryScreenBody(),
+    );
+  }
+}
