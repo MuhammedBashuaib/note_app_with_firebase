@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:note_app_with_firebase/cubits/edit_category_cubit/edit_category_cubit.dart';
 import 'package:note_app_with_firebase/presentation/widgets/edit_category_screen_body.dart';
 
 class EditCategoryScreen extends StatelessWidget {
@@ -6,11 +8,14 @@ class EditCategoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Category Edit"),
+    return BlocProvider(
+      create: (context) => EditCategoryCubit(),
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text("Category Edit"),
+        ),
+        body: const EditCategoryScreenBody(),
       ),
-      body: const EditCategoryScreenBody(),
     );
   }
 }
