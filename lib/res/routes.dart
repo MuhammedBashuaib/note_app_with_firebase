@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:note_app_with_firebase/presentation/screens/add_category_screen.dart';
 import 'package:note_app_with_firebase/presentation/screens/category_screen.dart';
+import 'package:note_app_with_firebase/presentation/screens/edit_category_screen.dart';
 import 'package:note_app_with_firebase/presentation/screens/home_screen.dart';
 import 'package:note_app_with_firebase/presentation/screens/sign_in_screen.dart';
 import 'package:note_app_with_firebase/presentation/screens/sign_up_screen.dart';
@@ -11,6 +12,7 @@ class MyRoutes {
   static const String homeScreen = "homeScreen";
   static const String addCategoryScreen = "addCategoryScreen";
   static const String categoryScreen = "categoryScreen";
+  static const String editCategoryScreen = "editCategoryScreen";
 }
 
 Map<String, Widget Function(BuildContext)> routes = {
@@ -19,4 +21,5 @@ Map<String, Widget Function(BuildContext)> routes = {
   MyRoutes.homeScreen: (context) => const HomeScreen(),
   MyRoutes.addCategoryScreen: (context) => const AddCategoryScreen(),
   MyRoutes.categoryScreen: (context) => const CategoryScreen(),
+  MyRoutes.editCategoryScreen: (context) => const EditCategoryScreen(),
 };

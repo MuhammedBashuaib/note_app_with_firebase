@@ -13,7 +13,7 @@ class CategoryScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).pushNamed(MyRoutes.addCategoryScreen);
+          Navigator.of(context).pushNamed(MyRoutes.editCategoryScreen);
         },
         child: const Icon(Icons.edit),
       ),
