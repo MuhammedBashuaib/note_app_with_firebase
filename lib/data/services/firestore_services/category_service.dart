@@ -26,6 +26,15 @@ class CategoryService {
         );
   }
 
+  Future<void> editCategory({
+    required String categoryId,
+    required String newName,
+  }) async {
+    await _categories.doc(categoryId).update({
+      MyCategorykeys.kCategoryName: newName,
+    });
+  }
+
   Future<List<CategoryModel>> getAllCategories({
     required String uid,
   }) async {
