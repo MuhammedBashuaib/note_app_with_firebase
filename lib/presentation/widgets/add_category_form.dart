@@ -50,15 +50,17 @@ class _AddCategoryFormState extends State<AddCategoryForm> {
             horizontalPadding: widthScreen * .04,
             color: MyColors.kOrange,
             onPressed: () async {
-              await BlocProvider.of<AddCategoryCubit>(context).addCategory(
-                uid: FirebaseAuth.instance.currentUser!.uid,
-                categoryName: widget.categoyNameController.text,
-              );
-              widget.categoyNameController.clear();
-              setState(() {
-                BlocProvider.of<CategoriesCubit>(currentContext)
-                    .getAllCategories(uid: MyFirebaseConst.currentUser!.uid);
-              });
+              if (widget.formKey.currentState!.validate()) {
+                await BlocProvider.of<AddCategoryCubit>(context).addCategory(
+                  uid: FirebaseAuth.instance.currentUser!.uid,
+                  categoryName: widget.categoyNameController.text,
+                );
+                widget.categoyNameController.clear();
+                setState(() {
+                  BlocProvider.of<CategoriesCubit>(currentContext)
+                      .getAllCategories(uid: MyFirebaseConst.currentUser!.uid);
+                });
+              }
             },
           ),
         ],
