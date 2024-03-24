@@ -45,7 +45,10 @@ class CusgomCategoryGridView extends StatelessWidget {
             return CustomCategoryCard(
               categoyName: categories[index].categoryName,
               onTap: () {
-                Navigator.of(context).pushNamed(MyRoutes.categoryScreen);
+                Navigator.of(context).pushNamed(
+                  MyRoutes.categoryScreen,
+                  arguments: categories[index],
+                );
               },
               onLongPress: () {
                 customShowDialog(

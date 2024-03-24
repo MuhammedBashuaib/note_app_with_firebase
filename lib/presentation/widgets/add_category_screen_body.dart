@@ -47,7 +47,9 @@ class _AddCategoryScreenBodyState extends State<AddCategoryScreenBody> {
               horizontal: widthScreen * .04,
             ),
             child: AddCategoryForm(
-                formKey: formKey, categoyNameController: categoyNameController),
+              formKey: formKey,
+              categoyNameController: categoyNameController,
+            ),
           ),
         );
       },
