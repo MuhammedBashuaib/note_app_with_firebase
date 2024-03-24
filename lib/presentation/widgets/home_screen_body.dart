@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,6 +18,7 @@ class HomeScreenBody extends StatefulWidget {
 class _HomeScreenBodyState extends State<HomeScreenBody> {
   @override
   void initState() {
+    MyFirebaseConst.currentUser = FirebaseAuth.instance.currentUser;
     BlocProvider.of<CategoriesCubit>(context).getAllCategories(
       uid: MyFirebaseConst.currentUser!.uid,
     );
