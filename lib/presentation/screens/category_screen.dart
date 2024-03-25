@@ -30,9 +30,14 @@ class CategoryScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-// Navigator.of(context).pushNamed()
+          Navigator.of(context).pushNamed(
+            MyRoutes.addNoteScreen,
+            arguments: category,
+          );
         },
-        child: const Icon(Icons.edit),
+        child: const Icon(
+          Icons.add,
+        ),
       ),
       body: const CategoryScreenBody(),
     );
