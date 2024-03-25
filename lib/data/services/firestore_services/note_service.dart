@@ -5,14 +5,19 @@ class NoteService {
   final CollectionReference _categories = FirebaseFirestore.instance
       .collection(MyCollictions.kCategoriesCollictions);
 
-  Future<String> addNote({required String categoryId, required note}) async {
+  Future<String> addNote({
+    required String categoryId,
+    required String noteTitle,
+    required note,
+  }) async {
     CollectionReference notes =
         _categories.doc(categoryId).collection(MyCollictions.kNoteCollictions);
 
     return notes
         .add(
           {
-            MyNotekeys.kNoteName: note,
+            MyNotekeys.kNoteTitle: noteTitle,
+            MyNotekeys.kNote: note,
           },
         )
         .then(

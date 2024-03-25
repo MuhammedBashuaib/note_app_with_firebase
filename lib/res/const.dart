@@ -16,5 +16,7 @@ class MyCategorykeys {
 //My note keys constanc
 ///////////////////////////////////////////////
 class MyNotekeys {
-  static const String kNoteName = "note_name";
+  static const String kId = "id";
+  static const String kNoteTitle = "note_title";
+  static const String kNote = "note";
 }
