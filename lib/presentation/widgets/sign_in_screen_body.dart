@@ -25,13 +25,6 @@ class _SignInScreenBodyState extends State<SignInScreenBody> {
   AuthService auth = AuthService();
 
   @override
-  void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return BlocConsumer<SignInCubit, SignInState>(
       listener: (context, state) {

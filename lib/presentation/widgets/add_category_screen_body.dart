@@ -19,12 +19,6 @@ class _AddCategoryScreenBodyState extends State<AddCategoryScreenBody> {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
-  void dispose() {
-    categoyNameController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return BlocConsumer<AddCategoryCubit, AddCategoryState>(
       listener: (context, state) {
