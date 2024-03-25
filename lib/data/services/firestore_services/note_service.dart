@@ -47,20 +47,4 @@ class NoteService {
 
     return notes;
   }
-
-  // Future<List<CategoryModel>> getAllCategories({
-  //   required String uid,
-  // }) async {
-  //   List<QueryDocumentSnapshot> data = [];
-  //   List<CategoryModel> categories = [];
-  //   QuerySnapshot querySnapshot =
-  //       await _categories.where("uid", isEqualTo: uid).get();
-  //   data.addAll(querySnapshot.docs);
-
-  //   for (var element in data) {
-  //     categories.add(CategoryModel.fromFirestore(element));
-  //   }
-
-  //   return categories;
-  // }
 }
