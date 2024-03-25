@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'package:note_app_with_firebase/cubits/edit_category_cubit/edit_category_cubit.dart';
 
+import 'package:note_app_with_firebase/cubits/edit_category_cubit/edit_category_cubit.dart';
 import 'package:note_app_with_firebase/data/models/category_model.dart';
 import 'package:note_app_with_firebase/presentation/widgets/custom_show_dialog.dart';
 import 'package:note_app_with_firebase/presentation/widgets/edit_category_form.dart';
@@ -20,17 +20,10 @@ class _EditCategoryScreenBodyState extends State<EditCategoryScreenBody> {
   GlobalKey<FormState> formKey = GlobalKey();
 
   @override
-  void dispose() {
-    categoyNameController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     CategoryModel category =
         ModalRoute.of(context)!.settings.arguments as CategoryModel;
 
-    // var currentContext = context;
     return BlocConsumer<EditCategoryCubit, EditCategoryState>(
       listener: (context, state) {
         if (state is EditCategorySuccessState) {
