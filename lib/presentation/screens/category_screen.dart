@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:note_app_with_firebase/data/models/category_model.dart';
 import 'package:note_app_with_firebase/presentation/widgets/category_screen_body.dart';
 import 'package:note_app_with_firebase/res/routes.dart';
@@ -13,13 +14,23 @@ class CategoryScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(category.categoryName),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.of(context).pushNamed(
+                MyRoutes.editCategoryScreen,
+                arguments: category,
+              );
+            },
+            icon: const Icon(
+              Icons.edit,
+            ),
+          )
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).pushNamed(
-            MyRoutes.editCategoryScreen,
-            arguments: category,
-          );
+// Navigator.of(context).pushNamed()
         },
         child: const Icon(Icons.edit),
       ),

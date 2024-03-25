@@ -18,6 +18,13 @@ class EditCategoryScreenBody extends StatefulWidget {
 class _EditCategoryScreenBodyState extends State<EditCategoryScreenBody> {
   TextEditingController categoyNameController = TextEditingController();
   GlobalKey<FormState> formKey = GlobalKey();
+
+  @override
+  void dispose() {
+    categoyNameController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     CategoryModel category =

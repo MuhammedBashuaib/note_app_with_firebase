@@ -14,7 +14,7 @@ import 'package:note_app_with_firebase/res/images.dart';
 import 'package:note_app_with_firebase/res/routes.dart';
 import 'package:note_app_with_firebase/res/sizes.dart';
 
-class SingInForm extends StatelessWidget {
+class SingInForm extends StatefulWidget {
   const SingInForm({
     super.key,
     required this.formKey,
@@ -27,9 +27,21 @@ class SingInForm extends StatelessWidget {
   final TextEditingController passwordController;
 
   @override
+  State<SingInForm> createState() => _SingInFormState();
+}
+
+class _SingInFormState extends State<SingInForm> {
+  @override
+  void dispose() {
+    widget.emailController.dispose();
+    widget.passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Form(
-      key: formKey,
+      key: widget.formKey,
       child: Column(
         children: [
           Column(
@@ -52,7 +64,7 @@ class SingInForm extends StatelessWidget {
                 height: heightScreen * .05,
               ),
               CustomTextFormField(
-                controller: emailController,
+                controller: widget.emailController,
                 // onChanged: (value) => _email = value,
                 obscureText: false,
                 title: "Email",
@@ -63,7 +75,7 @@ class SingInForm extends StatelessWidget {
                 height: heightScreen * .02,
               ),
               CustomTextFormField(
-                controller: passwordController,
+                controller: widget.passwordController,
                 // onChanged: (value) => _password = value,
                 obscureText: true,
                 title: "Password",
@@ -77,7 +89,7 @@ class SingInForm extends StatelessWidget {
                   textColor: MyColors.kBlack.withOpacity(0.4),
                   onPressed: () {
                     BlocProvider.of<SignInCubit>(context).forgotPassword(
-                      email: emailController.text,
+                      email: widget.emailController.text,
                     );
                   },
                 ),
@@ -95,8 +107,8 @@ class SingInForm extends StatelessWidget {
               // if (formKey.currentState!.validate()) {
               if (true) {
                 BlocProvider.of<SignInCubit>(context).signIn(
-                  email: emailController.text,
-                  password: passwordController.text,
+                  email: widget.emailController.text,
+                  password: widget.passwordController.text,
                 );
               }
             },

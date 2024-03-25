@@ -29,6 +29,12 @@ class EditCategoryForm extends StatefulWidget {
 
 class _EditCategoryFormState extends State<EditCategoryForm> {
   @override
+  void dispose() {
+    widget.categoyNameController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     var currentContext = context;
 

@@ -10,7 +10,7 @@ import 'package:note_app_with_firebase/res/color_app.dart';
 import 'package:note_app_with_firebase/res/routes.dart';
 import 'package:note_app_with_firebase/res/sizes.dart';
 
-class SignUpForm extends StatelessWidget {
+class SignUpForm extends StatefulWidget {
   const SignUpForm({
     super.key,
     required this.formKey,
@@ -25,9 +25,22 @@ class SignUpForm extends StatelessWidget {
   final TextEditingController passwordController;
 
   @override
+  State<SignUpForm> createState() => _SignUpFormState();
+}
+
+class _SignUpFormState extends State<SignUpForm> {
+  @override
+  void dispose() {
+    widget.emailController.dispose();
+    widget.usernameController.dispose();
+    widget.passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Form(
-      key: formKey,
+      key: widget.formKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -48,7 +61,7 @@ class SignUpForm extends StatelessWidget {
             height: heightScreen * .05,
           ),
           CustomTextFormField(
-            controller: usernameController,
+            controller: widget.usernameController,
             // onChanged: (value) => _username = value,
             obscureText: false,
             title: "Username",
@@ -59,7 +72,7 @@ class SignUpForm extends StatelessWidget {
             height: heightScreen * .02,
           ),
           CustomTextFormField(
-            controller: emailController,
+            controller: widget.emailController,
             // onChanged: (value) => email = value,
             obscureText: false,
             title: "Email",
@@ -70,7 +83,7 @@ class SignUpForm extends StatelessWidget {
             height: heightScreen * .02,
           ),
           CustomTextFormField(
-            controller: passwordController,
+            controller: widget.passwordController,
             // onChanged: (value) => password = value,
             obscureText: true,
             title: "Password",
@@ -88,8 +101,8 @@ class SignUpForm extends StatelessWidget {
               // if (formKey.currentState!.validate()) {
               if (true) {
                 BlocProvider.of<SignUpCubit>(context).signUp(
-                  email: emailController.text,
-                  password: passwordController.text,
+                  email: widget.emailController.text,
+                  password: widget.passwordController.text,
                 );
               }
             },

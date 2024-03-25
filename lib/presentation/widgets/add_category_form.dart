@@ -26,6 +26,12 @@ class AddCategoryForm extends StatefulWidget {
 
 class _AddCategoryFormState extends State<AddCategoryForm> {
   @override
+  void dispose() {
+    widget.categoyNameController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     var currentContext = context;
     return Form(
