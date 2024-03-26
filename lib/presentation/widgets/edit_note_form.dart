@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:note_app_with_firebase/cubits/edit_note_cubit/edit_note_cubit.dart';
+import 'package:note_app_with_firebase/cubits/notes_cubit/notes_cubit.dart';
+import 'package:note_app_with_firebase/data/models/note_model.dart';
 import 'package:note_app_with_firebase/presentation/widgets/custom_material_button.dart';
 import 'package:note_app_with_firebase/presentation/widgets/custom_text_form_field.dart';
 import 'package:note_app_with_firebase/res/color_app.dart';
@@ -10,8 +14,10 @@ class EditNoteForm extends StatelessWidget {
     required this.formKey,
     required this.noteTitleController,
     required this.noteController,
+    required this.note,
   });
 
+  final NoteModel note;
   final GlobalKey<FormState> formKey;
   final TextEditingController noteTitleController;
   final TextEditingController noteController;
@@ -50,7 +56,18 @@ class EditNoteForm extends StatelessWidget {
             titleButton: "Add",
             horizontalPadding: widthScreen * .04,
             color: MyColors.kOrange,
-            onPressed: () {},
+            onPressed: () {
+              if (formKey.currentState!.validate()) {
+                BlocProvider.of<EditNoteCubit>(context).editNote(
+                  categoryId: note.categoryId,
+                  noteId: note.id,
+                  newNoteTitle: noteTitleController.text,
+                  newNote: noteController.text,
+                );
+                BlocProvider.of<NotesCubit>(context)
+                    .getAllNotes(categoryId: note.categoryId);
+              }
+            },
           ),
         ],
       ),
