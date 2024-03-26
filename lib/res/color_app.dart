@@ -7,4 +7,5 @@ class MyColors {
   static const Color kWhite = Colors.white;
   static const Color kBlack = Colors.black;
   static const Color kMaroon = Color.fromARGB(255, 218, 32, 32);
+  static const Color kRed = Color.fromARGB(255, 255, 30, 14);
 }
