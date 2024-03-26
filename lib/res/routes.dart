@@ -12,7 +12,7 @@ class MyRoutes {
   static const String signUpScreen = "signUpScreen";
   static const String homeScreen = "homeScreen";
   static const String addCategoryScreen = "addCategoryScreen";
-  static const String categoryScreen = "categoryScreen";
+  static const String noteViewScreen = "noteViewScreen";
   static const String editCategoryScreen = "editCategoryScreen";
   static const String addNoteScreen = "addNoteScreen";
 }
@@ -22,7 +22,7 @@ Map<String, Widget Function(BuildContext)> routes = {
   MyRoutes.signUpScreen: (context) => const SignUpScreen(),
   MyRoutes.homeScreen: (context) => const HomeScreen(),
   MyRoutes.addCategoryScreen: (context) => const AddCategoryScreen(),
-  MyRoutes.categoryScreen: (context) => const NoteViewScreen(),
+  MyRoutes.noteViewScreen: (context) => const NoteViewScreen(),
   MyRoutes.editCategoryScreen: (context) => const EditCategoryScreen(),
   MyRoutes.addNoteScreen: (context) => const AddNoteScreen(),
 };

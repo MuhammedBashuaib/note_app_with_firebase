@@ -46,7 +46,7 @@ class CusgomCategoryGridView extends StatelessWidget {
               categoyName: categories[index].categoryName,
               onTap: () {
                 Navigator.of(context).pushNamed(
-                  MyRoutes.categoryScreen,
+                  MyRoutes.noteViewScreen,
                   arguments: categories[index],
                 );
               },

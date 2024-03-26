@@ -2,8 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:note_app_with_firebase/cubits/categories_cubit/categories_cubit.dart';
 
+import 'package:note_app_with_firebase/cubits/categories_cubit/categories_cubit.dart';
+import 'package:note_app_with_firebase/cubits/notes_cubit/notes_cubit.dart';
 import 'package:note_app_with_firebase/firebase_options.dart';
 import 'package:note_app_with_firebase/res/routes.dart';
 import 'package:note_app_with_firebase/res/sizes.dart';
@@ -27,6 +28,9 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<CategoriesCubit>(
           create: (context) => CategoriesCubit(),
+        ),
+        BlocProvider<NotesCubit>(
+          create: (context) => NotesCubit(),
         ),
       ],
       child: MaterialApp(

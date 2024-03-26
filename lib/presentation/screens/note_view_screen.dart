@@ -39,7 +39,9 @@ class NoteViewScreen extends StatelessWidget {
           Icons.add,
         ),
       ),
-      body: const NoteViewScreenBody(),
+      body: NoteViewScreenBody(
+        category: category,
+      ),
     );
   }
 }
