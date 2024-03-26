@@ -31,6 +31,20 @@ class NoteService {
         );
   }
 
+  Future<void> editNote({
+    required String categoryId,
+    required String noteId,
+    required String newNoteTitle,
+    required String newNote,
+  }) async {
+    CollectionReference notesCollection =
+        _categories.doc(categoryId).collection(MyCollictions.kNoteCollictions);
+    await notesCollection.doc(noteId).update({
+      MyNotekeys.kNoteTitle: newNoteTitle,
+      MyNotekeys.kNote: newNote,
+    });
+  }
+
   Future<List<NoteModel>> getAllNotes({
     required String categoryId,
   }) async {
