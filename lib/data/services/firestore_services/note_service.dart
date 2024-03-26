@@ -49,4 +49,13 @@ class NoteService {
 
     return notes;
   }
+
+  Future<void> deleteNote({
+    required String categoryId,
+    required String id,
+  }) async {
+    CollectionReference notesCollection =
+        _categories.doc(categoryId).collection(MyCollictions.kNoteCollictions);
+    await notesCollection.doc(id).delete();
+  }
 }
