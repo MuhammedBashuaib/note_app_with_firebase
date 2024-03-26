@@ -5,6 +5,7 @@ import 'package:note_app_with_firebase/cubits/notes_cubit/notes_cubit.dart';
 import 'package:note_app_with_firebase/data/models/note_model.dart';
 import 'package:note_app_with_firebase/presentation/widgets/custom_note_item.dart';
 import 'package:note_app_with_firebase/presentation/widgets/custom_show_dialog.dart';
+import 'package:note_app_with_firebase/res/routes.dart';
 import 'package:note_app_with_firebase/res/sizes.dart';
 
 class CustomNoteListViewBuilder extends StatelessWidget {
@@ -59,7 +60,12 @@ class CustomNoteListViewBuilder extends StatelessWidget {
                   },
                 );
               },
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).pushNamed(
+                  MyRoutes.editeNoteScreen,
+                  arguments: notes[index],
+                );
+              },
             );
           },
         );
