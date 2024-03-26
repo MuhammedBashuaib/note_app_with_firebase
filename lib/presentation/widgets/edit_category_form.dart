@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app_with_firebase/cubits/edit_category_cubit/edit_category_cubit.dart';
+import 'package:note_app_with_firebase/cubits/notes_cubit/notes_cubit.dart';
 import 'package:note_app_with_firebase/data/models/category_model.dart';
 import 'package:note_app_with_firebase/presentation/widgets/custom_material_button.dart';
 import 'package:note_app_with_firebase/presentation/widgets/custom_show_dialog.dart';
@@ -83,6 +84,8 @@ class _EditCategoryFormState extends State<EditCategoryForm> {
                     });
                   },
                 );
+                BlocProvider.of<NotesCubit>(context)
+                    .getAllNotes(categoryId: widget.category.id);
               }
             },
           ),
