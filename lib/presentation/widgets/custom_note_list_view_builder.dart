@@ -27,7 +27,7 @@ class CustomNoteListViewBuilder extends StatelessWidget {
           child: CustomNoteItem(
             noteTitle: notes[index].noteTitle,
             note: notes[index].note,
-            date: notes[index].createdDate,
+            date: notes[index].createdDate.toString(),
             onTap: () {},
           ),
         );

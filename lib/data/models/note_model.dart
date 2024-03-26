@@ -6,7 +6,7 @@ class NoteModel {
   String categoryId;
   String noteTitle;
   String note;
-  String createdDate;
+  DateTime createdDate;
 
   NoteModel(
       {required this.id,
@@ -22,7 +22,7 @@ class NoteModel {
       categoryId: categoryId,
       noteTitle: data[MyNotekeys.kNoteTitle],
       note: data[MyNotekeys.kNote],
-      createdDate: data[MyNotekeys.kCreatedDate],
+      createdDate: data[MyNotekeys.kCreatedDate].toDate(),
     );
   }
 

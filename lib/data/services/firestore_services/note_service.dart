@@ -20,7 +20,7 @@ class NoteService {
           {
             MyNotekeys.kNoteTitle: noteTitle,
             MyNotekeys.kNote: note,
-            MyNotekeys.kCreatedDate: createdDate.toString(),
+            MyNotekeys.kCreatedDate: createdDate,
           },
         )
         .then(
