@@ -9,7 +9,8 @@ class NoteService {
   Future<String> addNote({
     required String categoryId,
     required String noteTitle,
-    required note,
+    required String note,
+    required DateTime createdDate,
   }) async {
     CollectionReference notesCollection =
         _categories.doc(categoryId).collection(MyCollictions.kNoteCollictions);
@@ -19,6 +20,7 @@ class NoteService {
           {
             MyNotekeys.kNoteTitle: noteTitle,
             MyNotekeys.kNote: note,
+            MyNotekeys.kCreatedDate: createdDate.toString(),
           },
         )
         .then(
