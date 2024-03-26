@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 import 'package:note_app_with_firebase/data/models/category_model.dart';
-import 'package:note_app_with_firebase/presentation/widgets/category_screen_body.dart';
+import 'package:note_app_with_firebase/presentation/widgets/note_view_screen_body.dart';
 import 'package:note_app_with_firebase/res/routes.dart';
 
-class CategoryScreen extends StatelessWidget {
-  const CategoryScreen({super.key});
+class NoteViewScreen extends StatelessWidget {
+  const NoteViewScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +39,7 @@ class CategoryScreen extends StatelessWidget {
           Icons.add,
         ),
       ),
-      body: const CategoryScreenBody(),
+      body: const NoteViewScreenBody(),
     );
   }
 }
