@@ -9,9 +9,11 @@ class CustomNoteItem extends StatelessWidget {
     required this.noteTitle,
     required this.note,
     required this.date,
+    this.onPressedDelete,
   });
 
   final void Function()? onTap;
+  final void Function()? onPressedDelete;
   final String noteTitle;
   final String note;
   final String date;
@@ -59,7 +61,7 @@ class CustomNoteItem extends StatelessWidget {
                 ),
               ),
               trailing: IconButton(
-                onPressed: () {},
+                onPressed: onPressedDelete,
                 icon: Icon(
                   Icons.delete,
                   size: heightScreen * .04,

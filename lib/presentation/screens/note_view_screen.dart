@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'package:note_app_with_firebase/cubits/delete_note_cubit/delete_note_cubit.dart';
 import 'package:note_app_with_firebase/data/models/category_model.dart';
 import 'package:note_app_with_firebase/presentation/widgets/note_view_screen_body.dart';
 import 'package:note_app_with_firebase/res/routes.dart';
@@ -11,36 +13,39 @@ class NoteViewScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     CategoryModel category =
         ModalRoute.of(context)!.settings.arguments as CategoryModel;
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(category.categoryName),
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.of(context).pushNamed(
-                MyRoutes.editCategoryScreen,
-                arguments: category,
-              );
-            },
-            icon: const Icon(
-              Icons.edit,
-            ),
-          )
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.of(context).pushNamed(
-            MyRoutes.addNoteScreen,
-            arguments: category,
-          );
-        },
-        child: const Icon(
-          Icons.add,
+    return BlocProvider(
+      create: (context) => DeleteNoteCubit(),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(category.categoryName),
+          actions: [
+            IconButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed(
+                  MyRoutes.editCategoryScreen,
+                  arguments: category,
+                );
+              },
+              icon: const Icon(
+                Icons.edit,
+              ),
+            )
+          ],
         ),
-      ),
-      body: NoteViewScreenBody(
-        category: category,
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.of(context).pushNamed(
+              MyRoutes.addNoteScreen,
+              arguments: category,
+            );
+          },
+          child: const Icon(
+            Icons.add,
+          ),
+        ),
+        body: NoteViewScreenBody(
+          category: category,
+        ),
       ),
     );
   }

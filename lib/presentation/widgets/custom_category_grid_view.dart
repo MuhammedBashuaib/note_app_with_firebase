@@ -56,7 +56,8 @@ class CusgomCategoryGridView extends StatelessWidget {
                   title: "Confirm deletion",
                   content: "Are sure of the deleting process ?",
                   showCancelButton: true,
-                  onPressed: () async {
+                  onPressed: () {
+                    Navigator.of(context).pop();
                     BlocProvider.of<DeleteCategoryCubit>(context)
                         .deleteCategory(
                       categoryId: categories[index].id,
@@ -64,7 +65,6 @@ class CusgomCategoryGridView extends StatelessWidget {
                     BlocProvider.of<CategoriesCubit>(context).getAllCategories(
                       uid: MyFirebaseConst.currentUser!.uid,
                     );
-                    Navigator.of(context).pop();
                   },
                 );
               },
