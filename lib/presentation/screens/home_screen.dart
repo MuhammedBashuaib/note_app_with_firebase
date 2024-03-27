@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+import 'package:note_app_with_firebase/cubits/categories_cubit/categories_cubit.dart';
 import 'package:note_app_with_firebase/cubits/delete_category_cubit/delete_category_cubit.dart';
 
 import 'package:note_app_with_firebase/cubits/logout_cubit/logout_cubit.dart';
 import 'package:note_app_with_firebase/presentation/widgets/custom_logout_button.dart';
 import 'package:note_app_with_firebase/presentation/widgets/custom_show_dialog.dart';
 import 'package:note_app_with_firebase/presentation/widgets/home_screen_body.dart';
+import 'package:note_app_with_firebase/res/firebase_const.dart';
 import 'package:note_app_with_firebase/res/routes.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -46,8 +48,19 @@ class HomeScreen extends StatelessWidget {
             child: Scaffold(
               appBar: AppBar(
                 title: const Text("Home"),
-                actions: const [
-                  CustomLogoutButton(),
+                actions: [
+                  IconButton(
+                    onPressed: () {
+                      BlocProvider.of<CategoriesCubit>(context)
+                          .getAllCategories(
+                        uid: MyFirebaseConst.currentUser!.uid,
+                      );
+                    },
+                    icon: const Icon(
+                      Icons.refresh,
+                    ),
+                  ),
+                  const CustomLogoutButton(),
                 ],
               ),
               floatingActionButton: FloatingActionButton(
