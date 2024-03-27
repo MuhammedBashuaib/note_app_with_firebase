@@ -5,11 +5,13 @@ class CategoryModel {
   String id;
   String uid;
   String categoryName;
+  DateTime createdDate;
 
   CategoryModel({
     required this.id,
     required this.uid,
     required this.categoryName,
+    required this.createdDate,
   });
 
   factory CategoryModel.fromFirestore(DocumentSnapshot doc) {
@@ -18,6 +20,7 @@ class CategoryModel {
       id: doc.id,
       uid: data[MyCategorykeys.kUid],
       categoryName: data[MyCategorykeys.kCategoryName],
+      createdDate: data[MyCategorykeys.kCreatedDate].toDate(),
     );
   }
 

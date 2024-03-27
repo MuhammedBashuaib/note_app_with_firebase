@@ -60,6 +60,7 @@ class _AddCategoryFormState extends State<AddCategoryForm> {
                 await BlocProvider.of<AddCategoryCubit>(context).addCategory(
                   uid: FirebaseAuth.instance.currentUser!.uid,
                   categoryName: widget.categoyNameController.text,
+                  createdDate: DateTime.now(),
                 );
                 widget.categoyNameController.clear();
                 setState(() {

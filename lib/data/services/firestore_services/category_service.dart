@@ -10,12 +10,14 @@ class CategoryService {
   Future<String> addCategory({
     required String uid,
     required String categoryName,
+    required DateTime createdDate,
   }) {
     return _categories
         .add(
           {
             MyCategorykeys.kUid: uid,
             MyCategorykeys.kCategoryName: categoryName,
+            MyCategorykeys.kCreatedDate: createdDate,
           },
         )
         .then(
@@ -40,8 +42,10 @@ class CategoryService {
   }) async {
     List<QueryDocumentSnapshot> data = [];
     List<CategoryModel> categories = [];
-    QuerySnapshot querySnapshot =
-        await _categories.where("uid", isEqualTo: uid).get();
+    QuerySnapshot querySnapshot = await _categories
+        .where("uid", isEqualTo: uid)
+        .orderBy(MyCategorykeys.kCreatedDate)
+        .get();
     data.addAll(querySnapshot.docs);
 
     for (var element in data) {

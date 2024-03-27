@@ -9,12 +9,16 @@ class AddCategoryCubit extends Cubit<AddCategoryState> {
 
   final CategoryService _categoryService = CategoryService();
 
-  Future<void> addCategory(
-      {required String uid, required String categoryName}) async {
+  Future<void> addCategory({
+    required String uid,
+    required String categoryName,
+    required DateTime createdDate,
+  }) async {
     emit(AddCategoryLoadingState());
     String value = await _categoryService.addCategory(
       uid: uid,
       categoryName: categoryName,
+      createdDate: createdDate,
     );
     if (value == "success") {
       emit(AddCategorySuccessState());
