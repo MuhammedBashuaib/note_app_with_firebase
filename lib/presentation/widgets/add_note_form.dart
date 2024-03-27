@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app_with_firebase/cubits/add_note_cubit/add_note_cubit.dart';
 import 'package:note_app_with_firebase/cubits/notes_cubit/notes_cubit.dart';
 import 'package:note_app_with_firebase/data/models/category_model.dart';
+import 'package:note_app_with_firebase/presentation/widgets/custom_add_image_widget.dart';
 import 'package:note_app_with_firebase/presentation/widgets/custom_material_button.dart';
 import 'package:note_app_with_firebase/presentation/widgets/custom_text_form_field.dart';
 import 'package:note_app_with_firebase/res/color_app.dart';
@@ -36,7 +37,12 @@ class _AddNoteFormState extends State<AddNoteForm> {
       child: Column(
         children: [
           SizedBox(
-            height: heightScreen * .1,
+            height: heightScreen * .05,
+          ),
+          CustomAddImageWidget(),
+          Divider(
+            height: heightScreen * .05,
+            thickness: 1,
           ),
           CustomTextFormField(
             controller: widget.noteTitleController,
