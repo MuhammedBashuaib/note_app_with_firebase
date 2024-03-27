@@ -52,8 +52,9 @@ class NoteService {
     List<NoteModel> notes = [];
     CollectionReference notesCollection =
         _categories.doc(categoryId).collection(MyCollictions.kNoteCollictions);
-    QuerySnapshot querySnapshot =
-        await notesCollection.orderBy(MyNotekeys.kCreatedDate).get();
+    QuerySnapshot querySnapshot = await notesCollection
+        .orderBy(MyNotekeys.kCreatedDate, descending: true)
+        .get();
     data.addAll(querySnapshot.docs);
 
     for (var element in data) {

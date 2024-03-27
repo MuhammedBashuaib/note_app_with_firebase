@@ -44,7 +44,10 @@ class CategoryService {
     List<CategoryModel> categories = [];
     QuerySnapshot querySnapshot = await _categories
         .where("uid", isEqualTo: uid)
-        .orderBy(MyCategorykeys.kCreatedDate)
+        .orderBy(
+          MyCategorykeys.kCreatedDate,
+          descending: true,
+        )
         .get();
     data.addAll(querySnapshot.docs);
 
