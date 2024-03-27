@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:note_app_with_firebase/res/color_app.dart';
+import 'package:note_app_with_firebase/res/images.dart';
 import 'package:note_app_with_firebase/res/sizes.dart';
 
 class CustomNoteItem extends StatelessWidget {
@@ -34,13 +35,30 @@ class CustomNoteItem extends StatelessWidget {
                 color: MyColors.kGrey,
                 width: 2,
               )),
-          padding: EdgeInsets.symmetric(
-            horizontal: widthScreen * .02,
-            vertical: heightScreen * .03,
+          padding: EdgeInsets.only(
+            left: widthScreen * .02,
+            right: widthScreen * .02,
+            top: heightScreen * .01,
+            bottom: heightScreen * .03,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
+              Container(
+                height: heightScreen * .25,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(
+                    widthScreen * .02,
+                  ),
+                ),
+                child: Image.asset(
+                  MyImages.folderIcon,
+                ),
+              ),
+              SizedBox(
+                height: heightScreen * .02,
+              ),
               ListTile(
                 title: Padding(
                   padding: EdgeInsets.only(bottom: heightScreen * .02),
