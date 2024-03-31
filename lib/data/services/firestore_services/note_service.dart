@@ -1,4 +1,9 @@
+import 'dart:io';
+import 'package:path/path.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+
 import 'package:note_app_with_firebase/data/models/note_model.dart';
 import 'package:note_app_with_firebase/res/const.dart';
 
@@ -29,6 +34,13 @@ class NoteService {
         .catchError(
           (error) => error.toString(),
         );
+  }
+
+  Future<String?> addImage(File imageFile) async {
+    String imageName = basename(imageFile.path);
+    Reference? imagesRef = FirebaseStorage.instance.ref().child(imageName);
+    String? url = await imagesRef.getDownloadURL();
+    return url;
   }
 
   Future<void> editNote({
