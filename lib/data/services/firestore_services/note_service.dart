@@ -1,4 +1,5 @@
 import 'dart:io';
+// ignore: depend_on_referenced_packages
 import 'package:path/path.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -13,6 +14,7 @@ class NoteService {
 
   Future<String> addNote({
     required String categoryId,
+    required File imageFile,
     required String noteTitle,
     required String note,
     required DateTime createdDate,
@@ -20,9 +22,12 @@ class NoteService {
     CollectionReference notesCollection =
         _categories.doc(categoryId).collection(MyCollictions.kNoteCollictions);
 
+    String? url = await addImage(imageFile);
+
     return notesCollection
         .add(
           {
+            MyNotekeys.kImageUrl: url,
             MyNotekeys.kNoteTitle: noteTitle,
             MyNotekeys.kNote: note,
             MyNotekeys.kCreatedDate: createdDate,

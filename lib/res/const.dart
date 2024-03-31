@@ -18,6 +18,7 @@ class MyCategorykeys {
 ///////////////////////////////////////////////
 class MyNotekeys {
   static const String kId = "id";
+  static const String kImageUrl = "image_url";
   static const String kNoteTitle = "note_title";
   static const String kNote = "note";
   static const String kCreatedDate = "created_date";
