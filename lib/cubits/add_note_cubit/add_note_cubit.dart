@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:note_app_with_firebase/data/services/firestore_services/note_service.dart';
@@ -11,6 +13,7 @@ class AddNoteCubit extends Cubit<AddNoteState> {
 
   Future<void> addNote({
     required String categoryId,
+    required File imageFile,
     required String noteTitle,
     required String note,
     required DateTime createdDate,
@@ -18,6 +21,7 @@ class AddNoteCubit extends Cubit<AddNoteState> {
     emit(AddNoteLoadingState());
     String value = await _noteService.addNote(
       categoryId: categoryId,
+      imageFile: imageFile,
       noteTitle: noteTitle,
       note: note,
       createdDate: createdDate,
