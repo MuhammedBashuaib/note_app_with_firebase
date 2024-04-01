@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:note_app_with_firebase/cubits/edit_note_cubit/edit_note_cubit.dart';
 import 'package:note_app_with_firebase/cubits/notes_cubit/notes_cubit.dart';
 import 'package:note_app_with_firebase/data/models/note_model.dart';
@@ -90,6 +91,8 @@ class _EditNoteFormState extends State<EditNoteForm> {
               if (widget.formKey.currentState!.validate()) {
                 BlocProvider.of<EditNoteCubit>(context).editNote(
                   categoryId: widget.note.categoryId,
+                  imageUrl: widget.note.imageUrl,
+                  imageFile: imageFile,
                   noteId: widget.note.id,
                   newNoteTitle: widget.noteTitleController.text,
                   newNote: widget.noteController.text,

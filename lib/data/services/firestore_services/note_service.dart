@@ -56,13 +56,23 @@ class NoteService {
     required String noteId,
     required String newNoteTitle,
     required String newNote,
+    required String imageUrl,
+    required File? imageFile,
   }) async {
     CollectionReference notesCollection =
         _categories.doc(categoryId).collection(MyCollictions.kNoteCollictions);
-    await notesCollection.doc(noteId).update({
-      MyNotekeys.kNoteTitle: newNoteTitle,
-      MyNotekeys.kNote: newNote,
-    });
+    String? url = imageUrl;
+    if (imageFile != null) {
+      await deleteImage(imageUrl: imageUrl);
+      url = await addImage(imageFile);
+    }
+    await notesCollection.doc(noteId).update(
+      {
+        MyNotekeys.kImageUrl: url,
+        MyNotekeys.kNoteTitle: newNoteTitle,
+        MyNotekeys.kNote: newNote,
+      },
+    );
   }
 
   Future<List<NoteModel>> getAllNotes({
@@ -91,10 +101,12 @@ class NoteService {
     required String id,
     required String imageUrl,
   }) async {
-    CollectionReference notesCollection =
-        _categories.doc(categoryId).collection(MyCollictions.kNoteCollictions);
+    final DocumentReference<Map<String, dynamic>> notesCollection = _categories
+        .doc(categoryId)
+        .collection(MyCollictions.kNoteCollictions)
+        .doc(id);
+    await notesCollection.delete();
     await deleteImage(imageUrl: imageUrl);
-    await notesCollection.doc(id).delete();
   }
 
   Future<void> deleteImage({required imageUrl}) async {

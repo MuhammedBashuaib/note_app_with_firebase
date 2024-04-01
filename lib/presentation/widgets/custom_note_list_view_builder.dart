@@ -65,7 +65,6 @@ class _CustomNoteListViewBuilderState extends State<CustomNoteListViewBuilder> {
                       noteId: widget.notes[index].id,
                       imageUrl: widget.notes[index].imageUrl,
                     );
-
                     setState(
                       () {
                         BlocProvider.of<NotesCubit>(currentContext).getAllNotes(
