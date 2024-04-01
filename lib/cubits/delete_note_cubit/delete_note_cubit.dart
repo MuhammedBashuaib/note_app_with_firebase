@@ -9,13 +9,17 @@ class DeleteNoteCubit extends Cubit<DeleteNoteState> {
 
   final NoteService _noteService = NoteService();
 
-  Future<void> deleteNote(
-      {required String categoryId, required String noteId}) async {
+  Future<void> deleteNote({
+    required String categoryId,
+    required String noteId,
+    required String imageUrl,
+  }) async {
     emit(DeleteNoteLoadingState());
     try {
       _noteService.deleteNote(
         categoryId: categoryId,
         id: noteId,
+        imageUrl: imageUrl,
       );
       emit(
         DeleteNoteSuccessState(),

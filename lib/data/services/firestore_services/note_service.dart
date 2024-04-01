@@ -12,6 +12,8 @@ class NoteService {
   final CollectionReference _categories = FirebaseFirestore.instance
       .collection(MyCollictions.kCategoriesCollictions);
 
+  final FirebaseStorage _firebaseStorage = FirebaseStorage.instance;
+
   Future<String> addNote({
     required String categoryId,
     required File imageFile,
@@ -43,8 +45,7 @@ class NoteService {
 
   Future<String?> addImage(File imageFile) async {
     String imageName = basename(imageFile.path);
-    Reference? imagesRef =
-        FirebaseStorage.instance.ref("images").child(imageName);
+    Reference? imagesRef = _firebaseStorage.ref("images").child(imageName);
     await imagesRef.putFile(imageFile);
     String? url = await imagesRef.getDownloadURL();
     return url;
@@ -88,9 +89,16 @@ class NoteService {
   Future<void> deleteNote({
     required String categoryId,
     required String id,
+    required String imageUrl,
   }) async {
     CollectionReference notesCollection =
         _categories.doc(categoryId).collection(MyCollictions.kNoteCollictions);
+    await deleteImage(imageUrl: imageUrl);
     await notesCollection.doc(id).delete();
+  }
+
+  Future<void> deleteImage({required imageUrl}) async {
+    final desertRef = _firebaseStorage.refFromURL(imageUrl);
+    await desertRef.delete();
   }
 }
