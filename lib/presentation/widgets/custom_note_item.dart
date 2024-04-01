@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+
+import 'package:note_app_with_firebase/presentation/widgets/custom_cached_netword_image.dart';
 import 'package:note_app_with_firebase/res/color_app.dart';
 import 'package:note_app_with_firebase/res/images.dart';
 import 'package:note_app_with_firebase/res/sizes.dart';
@@ -11,6 +13,7 @@ class CustomNoteItem extends StatelessWidget {
     required this.note,
     required this.date,
     this.onPressedDelete,
+    required this.imageUrl,
   });
 
   final void Function()? onTap;
@@ -18,6 +21,7 @@ class CustomNoteItem extends StatelessWidget {
   final String noteTitle;
   final String note;
   final String date;
+  final String? imageUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -44,20 +48,22 @@ class CustomNoteItem extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Container(
-                height: heightScreen * .25,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(
-                    widthScreen * .02,
-                  ),
-                ),
-                child: Image.asset(
-                  MyImages.folderIcon,
-                ),
-              ),
+              imageUrl == null
+                  ? Container(
+                      height: heightScreen * .2,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(
+                          widthScreen * .02,
+                        ),
+                      ),
+                      child: Image.asset(
+                        MyImages.folderIcon,
+                      ),
+                    )
+                  : CustomCachedNetworkImage(imageUrl: imageUrl!),
               SizedBox(
-                height: heightScreen * .02,
+                height: heightScreen * .01,
               ),
               ListTile(
                 title: Padding(

@@ -39,6 +39,7 @@ class CustomNoteListViewBuilder extends StatelessWidget {
           },
           builder: (context, state) {
             return CustomNoteItem(
+              imageUrl: notes[index].imageUrl,
               noteTitle: notes[index].noteTitle,
               note: notes[index].note,
               date: notes[index].createdDate.toString(),
