@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app_with_firebase/cubits/edit_note_cubit/edit_note_cubit.dart';
 import 'package:note_app_with_firebase/cubits/notes_cubit/notes_cubit.dart';
 import 'package:note_app_with_firebase/data/models/note_model.dart';
-import 'package:note_app_with_firebase/presentation/widgets/custom_add_image_widget.dart';
+// import 'package:note_app_with_firebase/presentation/widgets/custom_add_image_widget.dart';
 import 'package:note_app_with_firebase/presentation/widgets/custom_material_button.dart';
 import 'package:note_app_with_firebase/presentation/widgets/custom_text_form_field.dart';
 import 'package:note_app_with_firebase/res/color_app.dart';
@@ -32,7 +32,7 @@ class EditNoteForm extends StatelessWidget {
           SizedBox(
             height: heightScreen * .05,
           ),
-          CustomAddImageWidget(),
+          // CustomAddImageWidget(),
           Divider(
             height: heightScreen * .05,
             thickness: 1,

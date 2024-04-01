@@ -19,19 +19,27 @@ class AddNoteCubit extends Cubit<AddNoteState> {
     required DateTime createdDate,
   }) async {
     emit(AddNoteLoadingState());
-    String value = await _noteService.addNote(
-      categoryId: categoryId,
-      imageFile: imageFile,
-      noteTitle: noteTitle,
-      note: note,
-      createdDate: createdDate,
-    );
-    if (value == "success") {
-      emit(AddNoteSuccessState());
-    } else {
+    try {
+      String value = await _noteService.addNote(
+        categoryId: categoryId,
+        imageFile: imageFile,
+        noteTitle: noteTitle,
+        note: note,
+        createdDate: createdDate,
+      );
+      if (value == "success") {
+        emit(AddNoteSuccessState());
+      } else {
+        emit(
+          AddNoteFailureState(
+            erorrMessage: value,
+          ),
+        );
+      }
+    } on Exception catch (e) {
       emit(
         AddNoteFailureState(
-          erorrMessage: value,
+          erorrMessage: e.toString(),
         ),
       );
     }

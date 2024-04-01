@@ -1,11 +1,15 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:note_app_with_firebase/cubits/add_note_cubit/add_note_cubit.dart';
 import 'package:note_app_with_firebase/cubits/notes_cubit/notes_cubit.dart';
 import 'package:note_app_with_firebase/data/models/category_model.dart';
+import 'package:note_app_with_firebase/helper/image_picker.dart';
 import 'package:note_app_with_firebase/presentation/widgets/custom_add_image_widget.dart';
 import 'package:note_app_with_firebase/presentation/widgets/custom_material_button.dart';
+import 'package:note_app_with_firebase/presentation/widgets/custom_show_dialog.dart';
 import 'package:note_app_with_firebase/presentation/widgets/custom_text_form_field.dart';
 import 'package:note_app_with_firebase/res/color_app.dart';
 import 'package:note_app_with_firebase/res/sizes.dart';
@@ -29,6 +33,9 @@ class AddNoteForm extends StatefulWidget {
 }
 
 class _AddNoteFormState extends State<AddNoteForm> {
+  File? imageFile;
+  Color color = MyColors.kGrey;
+
   @override
   Widget build(BuildContext context) {
     BuildContext currentContext = context;
@@ -39,7 +46,28 @@ class _AddNoteFormState extends State<AddNoteForm> {
           SizedBox(
             height: heightScreen * .05,
           ),
-          CustomAddImageWidget(),
+          CustomAddImageWidget(
+            imageFile: imageFile,
+            color: color,
+            onTapCamaraButton: () async {
+              imageFile = await pickImageFormCamera();
+              if (imageFile != null) {
+                color = MyColors.kBlack;
+              } else {
+                color = MyColors.kGrey;
+              }
+              setState(() {});
+            },
+            onTapGalleryButton: () async {
+              imageFile = await pickImageFormGallery();
+              if (imageFile != null) {
+                color = MyColors.kBlack;
+              } else {
+                color = MyColors.kGrey;
+              }
+              setState(() {});
+            },
+          ),
           Divider(
             height: heightScreen * .05,
             thickness: 1,
@@ -71,18 +99,28 @@ class _AddNoteFormState extends State<AddNoteForm> {
             color: MyColors.kOrange,
             onPressed: () async {
               if (widget.formKey.currentState!.validate()) {
-                await BlocProvider.of<AddNoteCubit>(context).addNote(
-                  categoryId: widget.category.id,
-                  noteTitle: widget.noteTitleController.text,
-                  note: widget.noteController.text,
-                  createdDate: DateTime.now(),
-                );
-                widget.noteTitleController.clear();
-                widget.noteController.clear();
-                setState(() {
-                  BlocProvider.of<NotesCubit>(currentContext)
-                      .getAllNotes(categoryId: widget.category.id);
-                });
+                if (imageFile != null) {
+                  await BlocProvider.of<AddNoteCubit>(context).addNote(
+                    categoryId: widget.category.id,
+                    imageFile: imageFile!,
+                    noteTitle: widget.noteTitleController.text,
+                    note: widget.noteController.text,
+                    createdDate: DateTime.now(),
+                  );
+                  widget.noteTitleController.clear();
+                  widget.noteController.clear();
+                  setState(() {
+                    BlocProvider.of<NotesCubit>(currentContext)
+                        .getAllNotes(categoryId: widget.category.id);
+                  });
+                } else {
+                  customShowDialog(
+                    context: context,
+                    title: "Error",
+                    content: "Photo required",
+                    onPressed: null,
+                  );
+                }
               }
             },
           ),

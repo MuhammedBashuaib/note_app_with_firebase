@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:note_app_with_firebase/presentation/widgets/custom_icon_button.dart';
 
@@ -7,7 +9,16 @@ import 'package:note_app_with_firebase/res/sizes.dart';
 class CustomAddImageWidget extends StatelessWidget {
   const CustomAddImageWidget({
     super.key,
+    this.onTapCamaraButton,
+    this.onTapGalleryButton,
+    required this.imageFile,
+    required this.color,
   });
+
+  final void Function()? onTapCamaraButton;
+  final void Function()? onTapGalleryButton;
+  final File? imageFile;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +28,7 @@ class CustomAddImageWidget extends StatelessWidget {
           height: heightScreen * .25,
           width: double.infinity,
           decoration: BoxDecoration(
-            color: MyColors.kGrey.withOpacity(0.2),
+            color: color,
             borderRadius: BorderRadius.circular(
               widthScreen * .03,
             ),
@@ -26,10 +37,14 @@ class CustomAddImageWidget extends StatelessWidget {
               width: 2,
             ),
           ),
-          child: Icon(
-            Icons.image,
-            size: heightScreen * .15,
-          ),
+          child: imageFile == null
+              ? Icon(
+                  Icons.image,
+                  size: heightScreen * .15,
+                )
+              : Image.file(
+                  imageFile!,
+                ),
         ),
         SizedBox(
           height: heightScreen * .02,
@@ -39,11 +54,11 @@ class CustomAddImageWidget extends StatelessWidget {
           children: [
             CustomIconButton(
               icon: Icons.photo,
-              onTap: () {},
+              onTap: onTapGalleryButton,
             ),
             CustomIconButton(
               icon: Icons.camera_alt,
-              onTap: () {},
+              onTap: onTapCamaraButton,
             )
           ],
         )

@@ -44,6 +44,7 @@ class NoteService {
   Future<String?> addImage(File imageFile) async {
     String imageName = basename(imageFile.path);
     Reference? imagesRef = FirebaseStorage.instance.ref().child(imageName);
+    await imagesRef.putFile(imageFile);
     String? url = await imagesRef.getDownloadURL();
     return url;
   }
