@@ -1,8 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:note_app_with_firebase/presentation/widgets/custom_icon_button.dart';
 
+import 'package:note_app_with_firebase/presentation/widgets/custom_cached_netword_image.dart';
+import 'package:note_app_with_firebase/presentation/widgets/custom_icon_button.dart';
 import 'package:note_app_with_firebase/res/color_app.dart';
 import 'package:note_app_with_firebase/res/sizes.dart';
 
@@ -12,13 +13,13 @@ class CustomAddImageWidget extends StatelessWidget {
     this.onTapCamaraButton,
     this.onTapGalleryButton,
     required this.imageFile,
-    required this.color,
+    this.imageUrl = "",
   });
 
   final void Function()? onTapCamaraButton;
   final void Function()? onTapGalleryButton;
   final File? imageFile;
-  final Color color;
+  final String imageUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,7 @@ class CustomAddImageWidget extends StatelessWidget {
           height: heightScreen * .25,
           width: double.infinity,
           decoration: BoxDecoration(
-            color: color,
+            color: MyColors.kGrey.withOpacity(0.2),
             borderRadius: BorderRadius.circular(
               widthScreen * .03,
             ),
@@ -37,14 +38,19 @@ class CustomAddImageWidget extends StatelessWidget {
               width: 2,
             ),
           ),
-          child: imageFile == null
-              ? Icon(
-                  Icons.image,
-                  size: heightScreen * .15,
-                )
-              : Image.file(
-                  imageFile!,
-                ),
+          child: imageUrl != "" && imageFile == null
+              ? CustomCachedNetworkImage(imageUrl: imageUrl)
+              : imageFile == null
+                  ? imageUrl == ""
+                      ? Icon(
+                          Icons.image,
+                          size: heightScreen * .15,
+                          color: MyColors.kBlack.withOpacity(0.5),
+                        )
+                      : CustomCachedNetworkImage(imageUrl: imageUrl)
+                  : Image.file(
+                      imageFile!,
+                    ),
         ),
         SizedBox(
           height: heightScreen * .02,

@@ -34,7 +34,6 @@ class AddNoteForm extends StatefulWidget {
 
 class _AddNoteFormState extends State<AddNoteForm> {
   File? imageFile;
-  Color color = MyColors.kGrey;
 
   @override
   Widget build(BuildContext context) {
@@ -48,23 +47,12 @@ class _AddNoteFormState extends State<AddNoteForm> {
           ),
           CustomAddImageWidget(
             imageFile: imageFile,
-            color: color,
             onTapCamaraButton: () async {
               imageFile = await pickImageFormCamera();
-              if (imageFile != null) {
-                color = MyColors.kBlack;
-              } else {
-                color = MyColors.kGrey;
-              }
               setState(() {});
             },
             onTapGalleryButton: () async {
               imageFile = await pickImageFormGallery();
-              if (imageFile != null) {
-                color = MyColors.kBlack;
-              } else {
-                color = MyColors.kGrey;
-              }
               setState(() {});
             },
           ),

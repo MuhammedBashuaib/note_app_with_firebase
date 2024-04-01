@@ -1,15 +1,19 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app_with_firebase/cubits/edit_note_cubit/edit_note_cubit.dart';
 import 'package:note_app_with_firebase/cubits/notes_cubit/notes_cubit.dart';
 import 'package:note_app_with_firebase/data/models/note_model.dart';
+import 'package:note_app_with_firebase/helper/image_picker.dart';
+import 'package:note_app_with_firebase/presentation/widgets/custom_add_image_widget.dart';
 // import 'package:note_app_with_firebase/presentation/widgets/custom_add_image_widget.dart';
 import 'package:note_app_with_firebase/presentation/widgets/custom_material_button.dart';
 import 'package:note_app_with_firebase/presentation/widgets/custom_text_form_field.dart';
 import 'package:note_app_with_firebase/res/color_app.dart';
 import 'package:note_app_with_firebase/res/sizes.dart';
 
-class EditNoteForm extends StatelessWidget {
+class EditNoteForm extends StatefulWidget {
   const EditNoteForm({
     super.key,
     required this.formKey,
@@ -24,21 +28,41 @@ class EditNoteForm extends StatelessWidget {
   final TextEditingController noteController;
 
   @override
+  State<EditNoteForm> createState() => _EditNoteFormState();
+}
+
+class _EditNoteFormState extends State<EditNoteForm> {
+  File? imageFile;
+
+  @override
   Widget build(BuildContext context) {
+    NoteModel note = ModalRoute.of(context)!.settings.arguments as NoteModel;
+
     return Form(
-      key: formKey,
+      key: widget.formKey,
       child: Column(
         children: [
           SizedBox(
             height: heightScreen * .05,
           ),
-          // CustomAddImageWidget(),
+          CustomAddImageWidget(
+            imageUrl: note.imageUrl,
+            imageFile: imageFile,
+            onTapCamaraButton: () async {
+              imageFile = await pickImageFormCamera();
+              setState(() {});
+            },
+            onTapGalleryButton: () async {
+              imageFile = await pickImageFormGallery();
+              setState(() {});
+            },
+          ),
           Divider(
             height: heightScreen * .05,
             thickness: 1,
           ),
           CustomTextFormField(
-            controller: noteTitleController,
+            controller: widget.noteTitleController,
             obscureText: false,
             title: "Note Titel",
             hintText: "Enter The Note Titel",
@@ -48,7 +72,7 @@ class EditNoteForm extends StatelessWidget {
             height: heightScreen * .02,
           ),
           CustomTextFormField(
-            controller: noteController,
+            controller: widget.noteController,
             maxLines: 6,
             obscureText: false,
             title: "Note",
@@ -63,15 +87,15 @@ class EditNoteForm extends StatelessWidget {
             horizontalPadding: widthScreen * .04,
             color: MyColors.kOrange,
             onPressed: () {
-              if (formKey.currentState!.validate()) {
+              if (widget.formKey.currentState!.validate()) {
                 BlocProvider.of<EditNoteCubit>(context).editNote(
-                  categoryId: note.categoryId,
-                  noteId: note.id,
-                  newNoteTitle: noteTitleController.text,
-                  newNote: noteController.text,
+                  categoryId: widget.note.categoryId,
+                  noteId: widget.note.id,
+                  newNoteTitle: widget.noteTitleController.text,
+                  newNote: widget.noteController.text,
                 );
                 BlocProvider.of<NotesCubit>(context)
-                    .getAllNotes(categoryId: note.categoryId);
+                    .getAllNotes(categoryId: widget.note.categoryId);
               }
             },
           ),
